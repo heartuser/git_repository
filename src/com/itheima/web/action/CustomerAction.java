@@ -56,15 +56,17 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 		if (cust_name != null && !cust_name.trim().isEmpty()){
 			criteria.add(Restrictions.like("cust_name", "%" + cust_name + "%"));
 		}
+		
 		// 拼条件(客户来源)
 		Dict cust_source = customer.getCust_source();
 		if (cust_source != null && !cust_source.getDict_id().trim().isEmpty()){
 			criteria.add(Restrictions.eq("cust_source.dict_id", cust_source.getDict_id()));
 		}
+		
 		// 拼条件(客户级别)
 		Dict cust_level = customer.getCust_level();
 		if (cust_level != null && !cust_level.getDict_id().trim().isEmpty()){
-			criteria.add(Restrictions.eq("cust_level.dict_id", cust_level.getDict_id()));
+			criteria.add(Restrictions.eq("cust_level.dict_id", cust_level.getDict_id())); 
 		}
 		// 查询
 		PageBean<Customer> page = customerService.findByPage(pageCode, pageSize, criteria);
