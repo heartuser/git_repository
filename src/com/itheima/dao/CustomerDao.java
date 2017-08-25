@@ -14,4 +14,6 @@ public interface CustomerDao {
 	public List<Customer> findAll();
 	public Customer findByLoad(String id);
 	public PageBean<Customer> findByPage(Integer pageCode, Integer pageSize, DetachedCriteria criteria);
+	public Customer findById(long cust_id);
+	public void delete(Customer customer);
 }

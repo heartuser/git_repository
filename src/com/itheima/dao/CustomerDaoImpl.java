@@ -15,7 +15,6 @@ public class CustomerDaoImpl extends HibernateDaoSupport implements CustomerDao 
 
 	@Override
 	public void save(Customer customer) {
-		System.out.println("持久层：保存客户");
 		this.getHibernateTemplate().save(customer);
 	}
 
@@ -57,6 +56,16 @@ public class CustomerDaoImpl extends HibernateDaoSupport implements CustomerDao 
 		List<Customer> beanList = (List<Customer>) this.getHibernateTemplate().findByCriteria(criteria, (page.getPageCode() - 1) * page.getPageSize(), page.getPageSize());
 		page.setBeanList(beanList);
 		return page;
+	}
+
+	@Override
+	public Customer findById(long cust_id) {
+		return this.getHibernateTemplate().get(Customer.class, cust_id);
+	}
+
+	@Override
+	public void delete(Customer customer) {
+		this.getHibernateTemplate().delete(customer);
 	}
 
 }

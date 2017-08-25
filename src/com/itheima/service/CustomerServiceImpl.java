@@ -47,4 +47,14 @@ public class CustomerServiceImpl implements CustomerService{
 		return page;
 	}
 
+	@Override
+	public Customer finById(long cust_id) {
+		return customerDao.findById(cust_id);
+	}
+
+	@Override
+	public void delete(Customer customer) {
+		customerDao.delete(customer);
+	}
+
 }

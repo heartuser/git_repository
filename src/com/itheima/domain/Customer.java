@@ -15,6 +15,8 @@ public class Customer {
 	private String cust_phone;
 	private String cust_mobile;
 	
+	private String filePath;// 保存上传文件路径
+	
 	public Long getCust_id() {
 		return cust_id;
 	}
@@ -39,7 +41,6 @@ public class Customer {
 	public void setCust_create_id(Long cust_create_id) {
 		this.cust_create_id = cust_create_id;
 	}
-	
 	public Dict getCust_source() {
 		return cust_source;
 	}
@@ -75,6 +76,12 @@ public class Customer {
 	}
 	public void setCust_mobile(String cust_mobile) {
 		this.cust_mobile = cust_mobile;
+	}
+	public String getFilePath() {
+		return filePath;
+	}
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
 	}
 	@Override
 	public String toString() {

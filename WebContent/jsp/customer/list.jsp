@@ -18,13 +18,24 @@
 		$.post(url,params,function(data){
 			$(data).each(function(i, n){// i是下标值，n是迭代产生的对象
 				// alert(n.dict_item_name);
-				$("#levelId").append("<option value='" + n.dict_id + "'>" + n.dict_item_name + "</option>");
+				// 从值栈中获取dict_id
+				var vsId = "${model.cust_level.dict_id}";
+				if (vsId == n.dict_id){
+					$("#levelId").append("<option value='" + n.dict_id + "' selected=selected>" + n.dict_item_name + "</option>");
+				}else{
+					$("#levelId").append("<option value='" + n.dict_id + "'>" + n.dict_item_name + "</option>");
+				}
 			});
 		},"json");
 		var params = {"dict_type_code" : "002"};
 		$.post(url,params,function(data){
 			$(data).each(function(i, n){
-				$("#sourceId").append("<option value='" + n.dict_id + "'>" + n.dict_item_name + "</option>");
+				var vsId = "${model.cust_source.dict_id}";
+				if (vsId == n.dict_id){
+					$("#sourceId").append("<option value='" + n.dict_id + "' selected=selected>" + n.dict_item_name + "</option>");
+				}else{
+					$("#sourceId").append("<option value='" + n.dict_id + "'>" + n.dict_item_name + "</option>");
+				}
 			});
 		},"json");
 	});
@@ -81,7 +92,7 @@
 												<TR>
 													<TD>客户名称：</TD>
 													<TD><INPUT class=textbox id="cust_name"
-														style="WIDTH: 80px" maxLength=50 name="cust_name"></TD>
+														style="WIDTH: 80px" maxLength=50 name="cust_name" value="${model.cust_name }"></TD>
 														
 													<TD>客户级别：</TD>
 													<td>
@@ -134,7 +145,7 @@
 													<TD>
 													<a href="${pageContext.request.contextPath }/customerServlet?method=edit&custId=${customer.cust_id}">修改</a>
 													&nbsp;&nbsp;
-													<a href="${pageContext.request.contextPath }/customerServlet?method=delete&custId=${customer.cust_id}">删除</a>
+													<a href="${pageContext.request.contextPath }/customer_delete?cust_id=${customer.cust_id}" onclick="return window.confirm('确定删除该客户吗？')">删除</a>
 													</TD>
 												</TR>
 												

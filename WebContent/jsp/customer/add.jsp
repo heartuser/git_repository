@@ -9,14 +9,31 @@
 <LINK href="${pageContext.request.contextPath }/css/Style.css" type=text/css rel=stylesheet>
 <LINK href="${pageContext.request.contextPath }/css/Manage.css" type=text/css
 	rel=stylesheet>
-
-
 <META content="MSHTML 6.00.2900.3492" name=GENERATOR>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+	$(function () {
+		var url = "${pageContext.request.contextPath }/dict_findByCode.action";
+		var param = {"dict_type_code":"002"};
+		$.post(url,param,function (data){
+			$(data).each(function (i,n) {
+				$("#source").append("<option value='" + n.dict_id + "'>" + n.dict_item_name + "</option>");
+			});
+		},"json");
+		
+		var param1 = {"dict_type_code":"006"};
+		$.post(url,param1,function (data){
+			$(data).each(function (i,n) {
+				$("#level").append("<option value='" + n.dict_id + "'>" + n.dict_item_name + "</option>");
+			});
+		},"json");
+	});
+</script>
 </HEAD>
 <BODY>
 	<FORM id=form1 name=form1
-		action="${pageContext.request.contextPath }/customerServlet?method=addsubmit"
-		method=post>
+		action="${pageContext.request.contextPath }/customer_save.action"
+		method=post enctype="multipart/form-data">
 		
 
 		<TABLE cellSpacing=0 cellPadding=0 width="98%" border=0>
@@ -52,13 +69,14 @@
 							<TR>
 								<td>客户名称：</td>
 								<td>
-								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="custName">
+									<INPUT class=textbox id=sChannel2
+															style="WIDTH: 180px" maxLength=50 name="cust_name">
 								</td>
 								<td>客户级别 ：</td>
 								<td>
-								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="custLevel">
+									<select id="level" name="cust_level.dict_id">
+										<option value="">-请选择-</option>
+									</select>
 								</td>
 							</TR>
 							
@@ -66,13 +84,14 @@
 								
 								<td>信息来源 ：</td>
 								<td>
-								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="custSource">
+									<select id="source" name="cust_source.dict_id">
+										<option value="">-请选择-</option>
+									</select>
 								</td>
 								<td>联系人：</td>
 								<td>
 								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="custLinkman">
+														style="WIDTH: 180px" maxLength=50 name="cust_linkman">
 								</td>
 							</TR>
 							
@@ -82,12 +101,12 @@
 								<td>固定电话 ：</td>
 								<td>
 								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="custPhone">
+														style="WIDTH: 180px" maxLength=50 name="cust_phone">
 								</td>
 								<td>移动电话 ：</td>
 								<td>
 								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="custMobile">
+														style="WIDTH: 180px" maxLength=50 name="cust_mobile">
 								</td>
 							</TR>
 							
@@ -95,24 +114,23 @@
 								<td>联系地址 ：</td>
 								<td>
 								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="custAddress">
+														style="WIDTH: 180px" maxLength=50 name="cust_address">
 								</td>
 								<td>邮政编码 ：</td>
 								<td>
 								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="custZip">
+														style="WIDTH: 180px" maxLength=50 name="cust_zip">
 								</td>
 							</TR>
 							<TR>
 								<td>客户传真 ：</td>
 								<td>
 								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="custFax">
+														style="WIDTH: 180px" maxLength=50 name="cust_fax">
 								</td>
-								<td>客户网址 ：</td>
+								<td>上传资质 ：</td>
 								<td>
-								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="custWebsite">
+									<INPUT type="file" name="upload">
 								</td>
 							</TR>
 							<tr>

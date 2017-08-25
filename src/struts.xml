@@ -5,6 +5,9 @@
 	
 <struts>
 	
+	<!-- 配置上传文件的大小，默认是2m -->
+	<constant name="struts.multipart.maxSize" value="2147483648" />
+	
 	<package name="crm" namespace="/" extends="struts-default">
 	
 		<global-results>
@@ -13,6 +16,15 @@
 	
 		<action name="customer_*" class="customerAction" method="{1}">
 			<result name="list">/jsp/customer/list.jsp</result>
+			<result name="initAdd">/jsp/customer/add.jsp</result>
+			<result name="saveSuccess" type="redirect">/customer_findByPage.action</result>
+			<result name="delete" type="redirect">/customer_findByPage.action</result>
+			<result name="input">/jsp/error.jsp</result>
+			<!-- 引入默认的拦截器栈 -->
+			<interceptor-ref name="defaultStack">
+				<!-- 定义可上传的文件类型 -->
+				<param name="fileUpload.allowedExtensions">.jpg,.txt</param>
+			</interceptor-ref>
 		</action>
 		
 		<action name="user_*" class="userAction" method="{1}">
