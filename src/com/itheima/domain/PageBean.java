@@ -26,8 +26,8 @@ public class PageBean<T> {
 		return pageCode;
 	}
 
-	public void setPageCode(int pageCode) {
-		if (pageCode <= 0){
+	public void setPageCode(Integer pageCode) {
+		if(pageCode == null || pageCode <= 0){
 			pageCode = 1;
 		}
 		this.pageCode = pageCode;
@@ -52,8 +52,8 @@ public class PageBean<T> {
 		} else {
 			this.totalPage = totalPage + 1;
 		}
-		if (pageCode > this.totalPage){
-			pageCode = this.totalPage;
+		if (this.pageCode > this.totalPage){
+			this.pageCode = this.totalPage;
 		}
 		this.totalCount = totalCount;
 	}
@@ -73,4 +73,11 @@ public class PageBean<T> {
 	public void setBeanList(List<T> beanList) {
 		this.beanList = beanList;
 	}
+
+	@Override
+	public String toString() {
+		return "PageBean [pageCode=" + pageCode + ", totalPage=" + totalPage + ", totalCount=" + totalCount
+				+ ", pageSize=" + pageSize + ", beanList=" + beanList + "]";
+	}
+	
 }

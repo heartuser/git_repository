@@ -17,6 +17,7 @@
 		<action name="customer_*" class="customerAction" method="{1}">
 			<result name="list">/jsp/customer/list.jsp</result>
 			<result name="initAdd">/jsp/customer/add.jsp</result>
+			<result name="initUpdate">/jsp/customer/edit.jsp</result>
 			<result name="saveSuccess" type="redirect">/customer_findByPage.action</result>
 			<result name="delete" type="redirect">/customer_findByPage.action</result>
 			<result name="input">/jsp/error.jsp</result>
@@ -33,6 +34,10 @@
 		
 		<action name="dict_*" class="dictAction" method="{1}">
 		
+		</action>
+		
+		<action name="linkman_*" class="linkmanAction" method="{1}">
+			<result name="page">/jsp/linkman/list.jsp</result>
 		</action>
 	</package>
     

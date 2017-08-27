@@ -1,5 +1,10 @@
 package com.itheima.domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class Customer {
 	
 	private Long cust_id;
@@ -14,6 +19,9 @@ public class Customer {
 	private String cust_linkman;
 	private String cust_phone;
 	private String cust_mobile;
+	
+	@JSONField(serialize=false)
+	Set<Linkman> linkmans = new HashSet<Linkman>();
 	
 	private String filePath;// 保存上传文件路径
 	
@@ -82,6 +90,12 @@ public class Customer {
 	}
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
+	}
+	public Set<Linkman> getLinkmans() {
+		return linkmans;
+	}
+	public void setLinkmans(Set<Linkman> linkmans) {
+		this.linkmans = linkmans;
 	}
 	@Override
 	public String toString() {

@@ -9,15 +9,45 @@
 <LINK href="${pageContext.request.contextPath }/css/Style.css" type=text/css rel=stylesheet>
 <LINK href="${pageContext.request.contextPath }/css/Manage.css" type=text/css
 	rel=stylesheet>
-
-
 <META content="MSHTML 6.00.2900.3492" name=GENERATOR>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+	$(function () {
+		var url = "${pageContext.request.contextPath }/dict_findByCode.action";
+		var param = {"dict_type_code":"002"};
+		$.post(url,param,function (data){
+			var vsId = "${model.cust_source.dict_id}";
+			$(data).each(function (i,n) {
+				if (vsId == n.dict_id){
+					$("#source").append("<option value='" + n.dict_id + "' selected='selected'>" + n.dict_item_name + "</option>");
+				}else{
+					$("#source").append("<option value='" + n.dict_id + "'>" + n.dict_item_name + "</option>");
+				}
+			});
+		},"json");
+		
+		var param1 = {"dict_type_code":"006"};
+		$.post(url,param1,function (data){
+			var vsId = "${model.cust_level.dict_id}";
+			$(data).each(function (i,n) {
+				if (vsId == n.dict_id){
+					$("#level").append("<option value='" + n.dict_id + "' selected='selected'>" + n.dict_item_name + "</option>");
+				}else{
+					$("#level").append("<option value='" + n.dict_id + "'>" + n.dict_item_name + "</option>");
+				}
+			});
+		},"json");
+	});
+</script>
 </HEAD>
 <BODY>
 	<FORM id=form1 name=form1
-		action="${pageContext.request.contextPath }/customerServlet?method=editsubmit"
-		method=post>
-		<input type="hidden" name="custId" value="${customer.custId }"/>
+		action="${pageContext.request.contextPath }/customer_update.action"
+		method=post enctype="multipart/form-data">
+		<!-- 隐藏客户的主键 -->
+		<input type="hidden" name="cust_id" value="${model.cust_id }"/>
+		<!-- 隐藏文件上传的路径 -->
+		<input type="hidden" name="filePath" value="${model.filePath }"/>
 
 		<TABLE cellSpacing=0 cellPadding=0 width="98%" border=0>
 			<TBODY>
@@ -50,25 +80,27 @@
 								<td>客户名称：</td>
 								<td>
 								<INPUT class=textbox id=sChannel2
-											style="WIDTH: 180px" maxLength=50 name="custName" value="${customer.custName }">
+											style="WIDTH: 180px" maxLength=50 name="cust_name" value="${model.cust_name }">
 								</td>
 								<td>客户级别 ：</td>
 								<td>
-								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="custLevel" value="${customer.custLevel }">
+									<select id="level" name="cust_level.dict_id">
+										
+									</select>
 								</td>
 							</TR>
 							
 							<TR>
 								<td>信息来源：</td>
 								<td>
-								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="custSource" value="${customer.custSource }">
+									<select id="source" name="cust_source.dict_id">
+										
+									</select>
 								</td>
 								<td>联系人：</td>
 								<td>
 								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="custLinkman" value="${customer.custLinkman }">
+														style="WIDTH: 180px" maxLength=50 name="cust_linkman" value="${model.cust_linkman }">
 								</td>
 							</TR>
 							<TR>
@@ -77,16 +109,16 @@
 								<td>固定电话 ：</td>
 								<td>
 								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="custPhone" value="${customer.custPhone }">
+														style="WIDTH: 180px" maxLength=50 name="cust_phone" value="${model.cust_phone }">
 								</td>
 								<td>移动电话 ：</td>
 								<td>
 								<INPUT class=textbox id=sChannel2
-														style="WIDTH: 180px" maxLength=50 name="custMobile" value="${customer.custMobile }">
+														style="WIDTH: 180px" maxLength=50 name="cust_mobile" value="${model.cust_mobile }">
 								</td>
 							</TR>
 							
-							<TR>
+							<%-- <TR>
 								<td>联系地址 ：</td>
 								<td>
 								<INPUT class=textbox id=sChannel2
@@ -109,7 +141,15 @@
 								<INPUT class=textbox id=sChannel2
 														style="WIDTH: 180px" maxLength=50 name="custWebsite" value="${customerDetail.custWebsite }">
 								</td>
-							</TR>
+							</TR> --%>
+							
+							<tr>
+								<td>上传资质：</td>
+								<td>
+									<input name="upload" type="file"/>
+								</td>
+							</tr>
+							
 							<tr>
 								<td rowspan=2>
 								<INPUT class=button id=sButton2 type=submit

@@ -42,6 +42,19 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
+	<!-- 配置联系人模块 -->
+	<bean id="linkmanAction" class="com.itheima.web.action.LinkmanAction">
+		<property name="linkmanService" ref="linkmanService" />
+	</bean>
+	
+	<bean id="linkmanService" class="com.itheima.service.LinkmanServiceImpl" >
+		<property name="linkmanDao" ref="linkmanDao" />
+	</bean>
+	
+	<bean id="linkmanDao" class="com.itheima.dao.LinkmanDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
 	<!-- 配置字典模块 -->
 	<bean id="dictAction" class="com.itheima.web.action.DictAction" scope="prototype">
 		<property name="dictService" ref="dictService" />
@@ -81,6 +94,7 @@
 				<value>com/itheima/domain/User.hbm.xml</value>
 				<value>com/itheima/domain/Customer.hbm.xml</value>
 				<value>com/itheima/domain/Dict.hbm.xml</value>
+				<value>com/itheima/domain/Linkman.hbm.xml</value>
 			</list>
 		</property>
 	</bean>

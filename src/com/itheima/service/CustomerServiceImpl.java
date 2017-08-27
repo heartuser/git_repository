@@ -3,11 +3,13 @@ package com.itheima.service;
 import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.itheima.dao.CustomerDao;
 import com.itheima.domain.Customer;
 import com.itheima.domain.PageBean;
 
+@Transactional
 public class CustomerServiceImpl implements CustomerService{
 	
 	private CustomerDao customerDao;
@@ -28,17 +30,12 @@ public class CustomerServiceImpl implements CustomerService{
 
 	@Override
 	public Customer getById(Long id) {
-		return customerDao.getById(id);
+		return customerDao.findById(id);
 	}
 
 	@Override
 	public List<Customer> findAll() {
 		return customerDao.findAll();
-	}
-
-	@Override
-	public Customer findByLoad(String id) {
-		return customerDao.findByLoad(id);
 	}
 
 	@Override

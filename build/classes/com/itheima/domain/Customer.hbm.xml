@@ -25,6 +25,10 @@
 		<many-to-one name="cust_industry" class="com.itheima.domain.Dict" column="cust_industry"/>
 		<many-to-one name="cust_level" class="com.itheima.domain.Dict" column="cust_level"/>
 		
+		<set name="linkmans" inverse="true">
+			<key column="lkm_cust_id" />
+			<one-to-many class="com.itheima.domain.Linkman"/>
+		</set>
 	</class>
 	
 </hibernate-mapping>    
